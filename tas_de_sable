@@ -5,3 +5,84 @@
 # Leo Goncalves
 # https://github.com/uvsq22105594/projet_tas_de_sable.py
 #########################################
+# import des librairies
+import tkinter as tk
+#############################
+# définition des constantes #
+#############################
+
+LENGTH = 500
+HEIGHT = 500
+
+####################################
+# définition des variables globales#
+####################################
+grille = [[0,0,0],[0,0,0],[0,0,0]]
+liste_config = [[[0,0,0],[0,0,0],[0,0,0]]] #cette variable commencera aussi par la grille vide
+
+# définition des fonctions 
+def random_grille():
+    ######################################### 
+    #Crée une grille aléatoire et l'affiche.#
+    #########################################
+    
+    global grille
+    global liste_config
+    for i in range (len(grille)):
+        for j in range (len(grille)):
+            grille[i][j] = randint(0,7)
+    #print(grille)
+    color()
+    liste_config.append(grille)
+
+
+def empty_grille():
+    ########################
+    # crée une grille vide #
+    ########################
+    
+    global grille
+    global liste_config
+    grille = [[0,0,0],[0,0,0],[0,0,0]]
+    color()
+    liste_config.append(grille)
+    
+
+################################################################################################
+# programme principal contenant la définition des widgets et des événements qui leur sont liés #
+################################################################################################
+
+racine = tk.Tk() 
+racine.title('tas de sable')
+
+                                        
+canvas = tk.Canvas(racine, bg="black", 
+                   height=500, width=500)
+canvas.grid(row=1, column=1, columnspan=4)
+
+Configuration_alea = tk.Button(text="Configuration aléatoire", 
+                    height=1, width=17,
+                    font=("Helvetica", "10"),
+                    command=random_grille
+                  )
+Configuration_alea.grid(row=0, column=1)
+
+Vide = tk.Button(text="Configuration vide", 
+                    height=1, width=13,
+                    font=("Helvetica", "10"),
+                    command=empty_grille
+                  )
+Vide.grid(row=0, column=2)
+
+#ligne horizontale:
+
+canvas.create_line((0, 500/3), (500, 500/3), fill="gray5", width=5)
+canvas.create_line((0, 500/3*2), (500, 500/3*2), fill="gray5", width=5)
+
+#ligne verticale:
+
+canvas.create_line((500/3, 0), (500/3, 500), fill="gray5", width=5)
+canvas.create_line((500/3*2, 0), (500/3*2, 500), fill="gray5", width=5)
+
+
+racine.mainloop() 
